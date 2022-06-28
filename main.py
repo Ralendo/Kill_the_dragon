@@ -23,7 +23,8 @@ position_healer_mage = np.zeros(amount_healer_mage, 2)
 
 
 # Действие магов - Атака и Лечение
-def aura_online(i, k, current_aura, mage_arrive_safezone, max_aura, speed_up_aura, total_damage, total_heal, type_of_action):
+def aura_online(i, k, current_aura, mage_arrive_safezone, max_aura, speed_up_aura, total_damage, total_heal,
+                type_of_action):
     global statblock_real_damager_mage, statblock_real_healer_mage, healpoint_dragon
     #  Повышение мощности ауры магов
     if current_aura <= max_aura:
@@ -62,6 +63,7 @@ def aura_offline(finish_position, damage_dragon, current_hp, position_of_mage, c
                 current_aura -= speed_down_aura
         return [current_hp, position_of_mage, current_aura]
 
+
 # Событие - Атака "Огненный смерч"
 def storm_attack():
     global healpoint_dragon, position_of_mage, statblock_real_damager_mage, statblock_real_healer_mage
@@ -92,9 +94,15 @@ def storm_attack():
                         mage_healer_not_in_safe_zone.delete(mage_healer_not_in_safe_zone, i)
                     # Если маг в сейф зоне, то усиление ауры и лечение магов, если нет - то урон по магам, передвижение, и снижение мощности ауры
                     if i not in mage_healer_not_in_safe_zone:
-                        mage_healer_aura_not_full, amount_healer_in_safezone, statblock_real_healer_mage[i,1], total_heal = aura_online(i, amount_healer_in_safezone, statblock_real_healer_mage[i, 1], mage_healer_aura_not_full, max_aura, speed_up_aura, None, total_heal, "Heal").split()
+                        mage_healer_aura_not_full, amount_healer_in_safezone, statblock_real_healer_mage[
+                            i, 1], total_heal = aura_online(i, amount_healer_in_safezone,
+                                                            statblock_real_healer_mage[i, 1], mage_healer_aura_not_full,
+                                                            max_aura, speed_up_aura, None, total_heal, "Heal").split()
                     else:
-                        statblock_real_healer_mage[i, 0], position_healer_mage[i], statblock_real_healer_mage[i, 1] = aura_offline(finish_position, damage_dragon, statblock_real_healer_mage[i,0], position_healer_mage[i], statblock_real_healer_mage[i,1], speed_down_aura)
+                        statblock_real_healer_mage[i, 0], position_healer_mage[i], statblock_real_healer_mage[
+                            i, 1] = aura_offline(finish_position, damage_dragon, statblock_real_healer_mage[i, 0],
+                                                 position_healer_mage[i], statblock_real_healer_mage[i, 1],
+                                                 speed_down_aura)
                 # Итерация по дамагерам
                 j = counter - amount_damager_in_safezone
                 if j < mage_damager_aura_not_full.size:
@@ -107,13 +115,16 @@ def storm_attack():
                         mage_damager_not_in_safe_zone.delete(mage_damager_not_in_safe_zone, i)
                     # Если маг в сейф зоне, то урон магов и усиление ауры, если нет - то урон по магам, передвижение, и снижение мощности ауры
                     if i not in mage_damager_not_in_safe_zone:
-                        mage_damager_aura_not_full, amount_damager_in_safezone, statblock_real_healer_mage[i, 1], total_damage = aura_online(i, amount_healer_in_safezone,
-                                                                                        statblock_real_healer_mage[i, 1],
-                                                                                        mage_healer_aura_not_full, max_aura,
-                                                                                        speed_up_aura, total_damage, None, "Damage").split()
+                        mage_damager_aura_not_full, amount_damager_in_safezone, statblock_real_healer_mage[
+                            i, 1], total_damage = aura_online(i, amount_healer_in_safezone,
+                                                              statblock_real_healer_mage[i, 1],
+                                                              mage_healer_aura_not_full, max_aura,
+                                                              speed_up_aura, total_damage, None, "Damage").split()
                     else:
-                        statblock_real_damager_mage[i, 0], position_damager_mage[i], statblock_real_damager_mage[i, 1] = aura_offline(finish_position, damage_dragon, statblock_real_damager_mage[i, 0],
-                                     position_damager_mage[i], statblock_real_damager_mage[i, 1], speed_down_aura).split()
+                        statblock_real_damager_mage[i, 0], position_damager_mage[i], statblock_real_damager_mage[
+                            i, 1] = aura_offline(finish_position, damage_dragon, statblock_real_damager_mage[i, 0],
+                                                 position_damager_mage[i], statblock_real_damager_mage[i, 1],
+                                                 speed_down_aura).split()
 
                 counter += 1
         # Нанесение урона по дракону дамагеров с полной аурой
@@ -131,7 +142,7 @@ def storm_attack():
             print("You are not prepared")
             exit()
 
-        if healpoint_dragon <= 0:
+        if healpoint_dragon <= 0 & (not (mage_healer_not_in_safe_zone | mage_damager_not_in_safe_zone)) :
             print("No useful loot again")
             print(counter_of_attack)
             exit()
