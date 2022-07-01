@@ -63,7 +63,7 @@ def aura_online(i, k, current_aura, mage_not_full_aura, max_aura, speed_up_aura,
 def aura_offline(finish_position, damage_dragon, current_hp, position_of_mage, current_aura, speed_down_aura):
     # Передвижение
     direct_vector = finish_position - position_of_mage  # Вектор направления мага
-    k = (np.sqrt(direct_vector.dor(direct_vector))) / speed_of_mage  # Коэф. пропорциональности
+    k = (np.sqrt(direct_vector.dot(direct_vector))) / speed_of_mage  # Коэф. пропорциональности
     position_of_mage = direct_vector / k  # Передвижение
     # Урон по магу
     current_hp -= damage_dragon
@@ -155,7 +155,7 @@ def storm_attack():
         statblock_real_healer_mage += np.array([total_heal, 0] * amount_healer_mage)
         statblock_real_healer_mage = np.clip(statblock_real_healer_mage, 0, healpoint_mage)
 
-        if (statblock_real_healer_mage[:, 0].count(0) == 0) | statblock_real_damager_mage[:, 0].count(0) == 0:
+        if (0 in statblock_real_healer_mage[:, 0] ) | (0 in statblock_real_damager_mage[:, 0]):
             print("You are not prepared")
             exit()
 
@@ -221,7 +221,7 @@ def breath_attack():
             for safe_position in safe_positions:
                 if i < amount_damager_mage:
                     direct_vector = safe_position - position_damager_mage[i]  # Вектор направления маг
-                    k = (np.sqrt(direct_vector.dor(direct_vector))) / speed_of_mage  # Коэф. пропорциональности
+                    k = (np.sqrt(direct_vector.dot(direct_vector))) / speed_of_mage  # Коэф. пропорциональности
                     if k <= number_of_moves:
                         temp_list_positions[i].append(safe_position)
                 else:
@@ -428,7 +428,7 @@ def breath_attack():
         statblock_real_healer_mage += np.array([total_heal, 0] * amount_healer_mage)
         statblock_real_healer_mage = np.clip(statblock_real_healer_mage, 0, healpoint_mage)
 
-        if (statblock_real_healer_mage[:, 0].count(0) == 0) | statblock_real_damager_mage[:, 0].count(0) == 0:
+        if (0 in statblock_real_healer_mage[:, 0]) | (0 in statblock_real_damager_mage[:, 0]):
             print("You are not prepared")
             exit()
 
