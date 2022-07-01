@@ -41,13 +41,17 @@ def aura_online(i, k, current_aura, mage_not_full_aura, max_aura, speed_up_aura,
     global statblock_real_damager_mage, statblock_real_healer_mage, healpoint_dragon
     #  Повышение мощности ауры магов
     if current_aura <= max_aura:
+        if type_of_action == 'Damage':
+            total_damage -= current_aura
+        if type_of_action == 'Heal':
+            total_heal -= current_aura
         current_aura += speed_up_aura
         if ((current_aura + speed_up_aura) >= max_aura) | (current_aura >= max_aura):
             current_aura = max_aura
             if type_of_action == 'Damage':
-                total_damage += max_aura
+                total_damage += current_aura
             if type_of_action == 'Heal':
-                total_heal += max_aura
+                total_heal += current_aura
             mage_not_full_aura = np.delete(mage_not_full_aura, i)
             k += 1
     # Нанесение урона и лечение магов
@@ -430,11 +434,6 @@ def breath_attack():
             print("You are not prepared")
             exit()
 
-        if healpoint_dragon <= 0 & (
-                (mage_damager_not_in_safe_zone.size == 0) & (mage_damager_not_in_safe_zone.size == 0)):
-            print("No useful loot again")
-            print(counter_of_attack)
-            exit()
         time_attack -= 1
 
 
