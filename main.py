@@ -176,7 +176,7 @@ def breath_attack():
     print()
     safe_positions = [list(map(int, input().split())) for j in range(amount_mage)]
     print()
-    safe_positions = np.array(safe_positions)
+    safe_positions = np.array(safe_positions, dtype = object)
     total_damage = 0  # Общий урон магов, имеющие полную ауру
     total_heal = 0  # Общий хил магов, имеющие полную ауру
     mage_damager_aura_not_full, mage_damager_not_in_safe_zone = np.arange(amount_damager_mage), np.arange(amount_damager_mage)
@@ -184,7 +184,7 @@ def breath_attack():
     # /|\ 1 -ый Список, в котором хранятся индексы магов, аура которых не полная
     #  |  2 -ый Список, где лежат индексы магов вне сейф зоны
 
-    # Если это послдняя атака перед Tail - то проигрыш.
+    # Если это последняя атака перед Tail - то проигрыш.
     if (counter_of_attack + 1) == amount_attack_of_dragon:
         print("You are not prepared")
         exit()
