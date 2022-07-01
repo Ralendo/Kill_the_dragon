@@ -1,0 +1,27 @@
+
+\documentclass[aspectratio=169, 11pt]{beamer} 
+
+\include{config}
+\include{settings/packages}
+\include{settings/preferences}
+\usepackage{graphicx}
+\graphicspath{{pictures/}}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg,.gif,.webp}
+
+
+\institute[\university]{\university \\ \faculty}
+\title[\docname]{\docname}
+\author[\studentname]{\small Выполнил: студент \group \ \studentname }
+\date{\the\year} 
+
+\include{templates/titlepage}
+
+\begin{document}
+
+
+\include{content}
+
+
+\include{templates/bib-page}
+
+\end{document}
