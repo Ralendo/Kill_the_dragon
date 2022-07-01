@@ -79,7 +79,7 @@ def storm_attack():
     global healpoint_dragon, position_damager_mage, position_healer_mage, statblock_real_damager_mage, statblock_real_healer_mage
     damage_dragon, time_attack = map(int, input().split())
     time_attack -= 1
-    print(damage_dragon, time_attack
+    print(damage_dragon, time_attack)
     finish_position = np.array(list(map(int, input().split())))  # Точка безопасной зоны
     # finish_position = np.array([0, 0])
     print(finish_position)
