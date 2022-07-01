@@ -3,24 +3,24 @@ import numpy as np
 
 # Входные данные блока стистики
 amount_damager_mage, amount_healer_mage, amount_attack_of_dragon = map(int, input().split())
+print()
 # amount_damager_mage, amount_healer_mage, amount_attack_of_dragon = 1, 1, 2
-print(amount_damager_mage, amount_healer_mage, amount_attack_of_dragon)
 amount_mage = amount_damager_mage + amount_healer_mage
 
 healpoint_mage, speed_of_mage, healpoint_dragon = map(int, input().split())
+print()
 # healpoint_mage, speed_of_mage, healpoint_dragon = 1, 5, 10
-print(healpoint_mage, speed_of_mage, healpoint_dragon)
 # Статблок ауры магов.
 # Столбцы: 0 - макс. мощность ауры, 1 - скорость роста мощности ауры, 2 - скорость уменьшения мощности ауры
 # Дамагеры
 statblock_damager_mage_aura = [list(map(int, input().split())) for i in range(amount_damager_mage)]
-print(statblock_damager_mage_aura)
+print()
 # statblock_damager_mage_aura = [[1,3,2]]
 statblock_damager_mage_aura = np.array(statblock_damager_mage_aura)
 # print(statblock_damager_mage_aura)
 # Хилеры
 statblock_healer_mage_aura = [list(map(int, input().split())) for j in range(amount_healer_mage)]
-print(statblock_healer_mage_aura)
+print()
 # statblock_healer_mage_aura = [[1,1,1]]
 statblock_healer_mage_aura = np.array(statblock_healer_mage_aura)
 # print(statblock_healer_mage_aura)
@@ -79,10 +79,10 @@ def storm_attack():
     global healpoint_dragon, position_damager_mage, position_healer_mage, statblock_real_damager_mage, statblock_real_healer_mage
     damage_dragon, time_attack = map(int, input().split())
     time_attack -= 1
-    print(damage_dragon, time_attack)
+    print()
     finish_position = np.array(list(map(int, input().split())))  # Точка безопасной зоны
     # finish_position = np.array([0, 0])
-    print(finish_position)
+    print()
     total_damage = 0  # Общий урон магов, имеющие полную ауру
     total_heal = 0  # Общий хил магов, имеющие полную ауру
     mage_damager_aura_not_full, mage_damager_not_in_safe_zone = np.arange(amount_damager_mage), np.arange(amount_damager_mage)
@@ -169,9 +169,9 @@ def breath_attack():
     global healpoint_dragon, position_damager_mage, position_healer_mage, statblock_real_damager_mage, statblock_real_healer_mage
     damage_dragon, time_attack = map(int, input().split())
     time_attack =- 1
-    print(damage_dragon, time_attack)
+    print()
     safe_positions = [list(map(int, input().split())) for j in range(amount_mage)]
-    print(safe_positions)
+    print()
     safe_positions = np.array(safe_positions)
     total_damage = 0  # Общий урон магов, имеющие полную ауру
     total_heal = 0  # Общий хил магов, имеющие полную ауру
@@ -449,7 +449,7 @@ counter_of_attack = 0
 for kill_the_mage in range(amount_attack_of_dragon):
     counter_of_attack += 1
     type_attack = input()
-    print(type_attack)
+    print()
     if type_attack == "Tail":
         tail()
     if type_attack == "Storm":
