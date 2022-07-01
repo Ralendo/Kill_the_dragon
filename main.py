@@ -41,10 +41,6 @@ def aura_online(i, k, current_aura, mage_not_full_aura, max_aura, speed_up_aura,
     global statblock_real_damager_mage, statblock_real_healer_mage, healpoint_dragon
     #  Повышение мощности ауры магов
     if current_aura <= max_aura:
-        if type_of_action == 'Damage':
-            total_damage -= current_aura
-        if type_of_action == 'Heal':
-            total_heal -= current_aura
         current_aura += speed_up_aura
         if ((current_aura + speed_up_aura) >= max_aura) | (current_aura >= max_aura):
             current_aura = max_aura
@@ -188,17 +184,6 @@ def breath_attack():
     if (counter_of_attack + 1) == amount_attack_of_dragon:
         print("You are not prepared")
         exit()
-
-    maximum_heal = sum(statblock_healer_mage_aura[:, 0])
-    # Условие, что если даже с максимальным хиллом чел не выживает - то выход из программы.
-    for i in mage_damager_not_in_safe_zone:
-        if 0 in (statblock_real_damager_mage[i, 0] + maximum_heal - damage_dragon):
-            print("You are not prepared")
-            exit()
-    for i in mage_healer_not_in_safe_zone:
-        if 0 in (statblock_real_healer_mage[i, 0] + maximum_heal - damage_dragon):
-            print("You are not prepared")
-            exit()
 
     booked_safe_position = []
     maximum_moves = int(math.ceil(2000 * math.sqrt(2) / speed_of_mage))
